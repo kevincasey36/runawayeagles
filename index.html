@@ -1,49 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>Coming Soon!!!</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Coming Soon!!</h1>
-  </header>
-  <nav>
-    <ul>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
-  </nav>
-  <main>
-    <section id="services">
-      <h2>Our Services</h2>
-      <p>Our powerwashing services include:</p>
-      <ul>
-        <li>Exterior house washing</li>
-        <li>Deck cleaning</li>
-        <li>Concrete cleaning</li>
-        <li>Roof cleaning</li>
-      </ul>
-    </section>
-    <section id="pricing">
-      <h2>Pricing</h2>
-      <p>Our pricing is based on the size of the area that needs to be cleaned and the type of service required. Contact us for a customized quote.</p>
-    </section>
-    <section id="about">
-      <h2>About Us</h2>
-      <p>We are a team of powerwashing experts with years of experience in the industry. We use only the highest quality equipment and cleaning solutions to ensure that our customers get the best possible results.</p>
-    </section>
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>Phone: 555-555-5555</p>
-      <p>Email: info@powerwashstartup.com</p>
-    </section>
-  </main>
-  <footer>
-    <p>Copyright 2021 Powerwash Startup</p>
-  </footer>
-</body>
+  <head>
+    <title>Stock Screener</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Stock Screener</h1>
+    </header>
+    <main>
+      <form id="form-filters">
+        <!-- Use form elements such as input and select to allow the user to enter search criteria and filter the results -->
+        <label for="symbol">Symbol:</label>
+        <input type="text" name="symbol" id="symbol">
+        <br>
+        <label for="price-range">Price range:</label>
+        <select name="price-range" id="price-range">
+          <option value="">Any</option>
+          <option value="0-50">$0 to $50</option>
+          <option value="50-100">$50 to $100</option>
+          <!-- Add more options as needed -->
+        </select>
+        <br>
+        <!-- Add more form elements as needed -->
+        <button type="submit">Filter</button>
+      </form>
+      <table id="table-results">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price</th>
+            <!-- Add more columns as needed -->
+          </tr>
+        </thead>
+        <tbody>
+          <script
+          function getStockData(symbol) {
+  // Replace YOUR_API_KEY with your actual API key
+  const API_KEY = 'pk_351cdc0329064aaeb6e6d510e98f0f60';
+
+  // Replace https://example.com/api with the URL of your API
+  const API_URL = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${API_KEY}`;
+
+  // Make the API call
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(data => {
+      // The data variable contains the response from the API, which you can parse and use as needed
+      const tableBody = document.getElementById('table-results').getElementsByTagName('tbody')[0];
+      // Clear the table body
+      tableBody.innerHTML = '';
+
+      // Loop through the data and create a row for each stock
+      data.forEach(stock => {
+        const row = document.createElement('tr');
+        const symbolCell = document.createElement('td');
+        symbolCell.textContent = stock.symbol;
+        row.appendChild(symbolCell);
+        const nameCell = document.createElement('td');
+        nameCell.textContent = stock.name;
+        row.appendChild(nameCell);
+        const priceCell = document.createElement('td');
+        priceCell.textContent = stock.price;
+        row.appendChild(priceCell);
+        // Add more cells as needed
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+// Call the getStockData function with a stock symbol as an argument
+getStockData('AAPL');
+        </script>
+        </tbody>
+      </table>
+    </main>
+    <footer>
+      <p>Copyright 2021</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
