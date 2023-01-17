@@ -1,47 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Stock Screener</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>My Website</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
     <header>
-      <h1>Stock Screener</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </header>
     <main>
-      <form id="form-filters">
-        <!-- Use form elements such as input and select to allow the user to enter search criteria and filter the results -->
-        <label for="symbol">Symbol:</label>
-        <input type="text" name="symbol" id="symbol">
-        <br>
-        <label for="price-range">Price range:</label>
-        <select name="price-range" id="price-range">
-          <option value="">Any</option>
-          <option value="0-50">$0 to $50</option>
-          <option value="50-100">$50 to $100</option>
-          <!-- Add more options as needed -->
-        </select>
-        <br>
-        <!-- Add more form elements as needed -->
-        <button type="submit">Filter</button>
-      </form>
-      <table id="table-results">
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Price</th>
-            <!-- Add more columns as needed -->
-          </tr>
-        </thead>
-        <tbody>
-          <script type="text/json" src="script.js"></script>
-        </tbody>
-      </table>
+      <h1>Welcome to My Website</h1>
+      <section>
+        <h2>About Us</h2>
+        <p>Learn more about our company and our mission.</p>
+        <a href="about.html">Read More</a>
+      </section>
+      <section>
+        <h2>Our Services</h2>
+        <p>We offer a variety of services to help our clients succeed.</p>
+        <a href="services.html">Learn More</a>
+      </section>
     </main>
     <footer>
-      <p>Copyright 2021</p>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <p>Copyright ©2022 My Website</p>
     </footer>
-    <script src="script.js"></script>
   </body>
 </html>
