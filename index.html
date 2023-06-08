@@ -1,66 +1,74 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>EPC</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#about-us">About Us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#blog">Blog</a></li>
-      </ul>
-    </nav>
-  </header>
-  
- 
-  <h1>EPC</h1>
-   
+    <head>
+        <title>Out of Date Transactions</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            #transactions {
+                margin-top: 20px;
+            }
+            .transaction {
+                margin-bottom: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            #loading {
+                display: none;
+            }
+            #error {
+                color: red;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Out of Date Transactions</h1>
 
-  <main>
-    <section id="about-us">
-      <h2>About Us</h2>
-      <p>Your mission, values, and team.</p>
-    </section>
+        <div id="loading">
+            Loading transactions...
+        </div>
 
-    <section id="services">
-      <h2>Services</h2>
-      <ul>
-        <li>Service 1</li>
-        <li>Service 2</li>
-        <li>Service 3</li>
-      </ul>
-    </section>
+        <div id="error">
+            <!-- Error message will be inserted here -->
+        </div>
 
-    <section id="portfolio">
-      <h2>Portfolio</h2>
-      <p>Successful projects and clients.</p>
-    </section>
+        <div id="transactions">
+            <!-- Transactions will be inserted here -->
+        </div>
 
-    <section id="testimonials">
-      <h2>Testimonials</h2>
-      <p>Client testimonials.</p>
-    </section>
+        <script>
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const transactionsDiv = document.getElementById('transactions');
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Contact form and information.</p>
-    </section>
+            loadingDiv.style.display = 'block';
 
-    <section id="blog">
-      <h2>Blog</h2>
-      <p>Valuable content and thought leadership.</p>
-    </section>
-  </main>
+            fetch('http://localhost:5000/get_out_of_date_transactions')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loadingDiv.style.display = 'none';
 
-  <footer>
-    <p>Privacy Policy and Terms of Service</p>
-  </footer>
-</body>
+                    data.forEach(transaction => {
+                        let div = document.createElement('div');
+                        div.classList.add('transaction');
+                        div.textContent = 'Symbol: ' + transaction.symbol + ', Transaction Date: ' + transaction.transaction_date;
+                        transactionsDiv.appendChild(div);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    loadingDiv.style.display = 'none';
+                    errorDiv.textContent = 'Error: ' + error;
+                    errorDiv.style.display = 'block';
+                });
+        </script>
+    </body>
 </html>
