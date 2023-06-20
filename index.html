@@ -59,7 +59,26 @@
                     data.forEach(transaction => {
                         let div = document.createElement('div');
                         div.classList.add('transaction');
-                        div.textContent = 'Symbol: ' + transaction.symbol + ', Transaction Date: ' + transaction.transaction_date;
+                        
+                        let transactionDate = new Date(transaction.transactionDate);
+                        let formattedDate = transactionDate.toLocaleDateString();
+
+                        // Create a string with all the transaction details.
+                        let transactionDetails = `
+                            Symbol: ${transaction.symbol}, 
+                            Transaction Date: ${formattedDate}, 
+                            Full Name: ${transaction.fullName},
+                            Direct/Indirect: ${transaction.directIndirect}, 
+                            Transaction Code: ${transaction.transactionCode}, 
+                            Transaction Price: ${transaction.transactionPrice},
+                            Transaction Shares: ${transaction.transactionShares},
+                            Transaction Value: ${transaction.transactionValue},
+                            Post Shares: ${transaction.postShares}, 
+                            Reported Title: ${transaction.reportedTitle}, 
+                            SEC Accession Number: ${transaction.secAccessionNumber}
+                        `;
+
+                        div.textContent = transactionDetails;
                         transactionsDiv.appendChild(div);
                     });
                 })
