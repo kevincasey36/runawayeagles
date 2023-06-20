@@ -46,7 +46,7 @@
 
             loadingDiv.style.display = 'block';
 
-            fetch('http://localhost:5000/get_out_of_date_transactions')
+            fetch('https://cloud.iexapis.com/stable/stock/TSLA/insider-transactions?token=pk_351cdc0329064aaeb6e6d510e98f0f60')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
